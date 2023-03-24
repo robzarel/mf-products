@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build/static'),
-    publicPath: 'https://robzarel.github.io/mf-products/static/'
+    publicPath:  ID_DEV ? 'static/': 'https://robzarel.github.io/mf-products/static/'
   },
   devServer: {
     port: 8081,
