@@ -1,8 +1,17 @@
+const path = require("path");
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPluging = require('webpack/lib/container/ModuleFederationPlugin');
 
+const ID_DEV = process.env.NODE_ENV === 'dev';
+
 module.exports = {
-  mode: 'development',
+  mode: ID_DEV ? 'development': 'production',
+  output: {
+    filename: '[name].[hash].js',
+    path: path.resolve(__dirname, 'build/static'),
+    publicPath: 'static/'
+  },
   devServer: {
     port: 8081,
   },
@@ -20,6 +29,7 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
+      filename: '../index.html',
       template: './public/index.html',
     })
   ]
