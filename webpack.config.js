@@ -3,15 +3,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPluging = require('webpack/lib/container/ModuleFederationPlugin');
 
-const ID_DEV = process.env.NODE_ENV === 'dev';
+const IS_DEV = process.env.MODE === 'dev';
 
-module.exports = {
-  mode: ID_DEV ? 'development': 'production',
-  output: {
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'build/static'),
-    publicPath:  ID_DEV ? 'static/': 'https://robzarel.github.io/mf-products/static/'
-  },
+const config = {
+  mode: 'development',
   devServer: {
     port: 8081,
   },
@@ -20,17 +15,22 @@ module.exports = {
       name: 'products',
       filename: 'remoteEntry.js',
       exposes: {
-        './ProductIndex': './src/index'
+        './ProductIndex': './src/bootstrap'
       },
-      shared: {
-        faker: {
-          singleton: true
-        }
-      },
+      shared: ['faker'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
       template: './public/index.html',
     })
   ]
 };
+
+if (!IS_DEV) {
+  config.output = {
+    filename: '[name].[hash].js',
+    path: path.resolve(__dirname, 'build/static'),
+    publicPath: 'static/'
+  };
+}
+
+module.exports = config;
