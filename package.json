@@ -7,8 +7,8 @@
   "scripts": {
     "start": "cross-env MODE=dev webpack serve",
     "build": "cross-env MODE=prod webpack",
-    "predeploy": "rm -rf build && npm run build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "rm -rf dist && npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "gh-pages": "^5.0.0",
-    "path": "^0.12.7"
+    "gh-pages": "^5.0.0"
   }
 }
