@@ -12,9 +12,7 @@ const mount = (el) => {
   el.innerHTML = products;  
 };
 
-if (process.env.NODE_ENV === 'development') {
-  const root = document.getElementById('dev-products');
-  root && mount(root);
-}
+const root = document.getElementById('dev-products');
+root && mount(root);
 
 export { mount };
